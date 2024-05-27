@@ -1,0 +1,64 @@
+{{ define "searchResults" }}
+<div id="search-results" hx-target="#audio-source" hx-swap="innerHTML">
+	{{ range . }}
+	<button hx-get="/audio-source/{{ .Title }}">{{ .Title }}</button>
+	{{ end }}
+	<button 
+		hx-get="/download-yt" 
+		hx-vals="js:{query: getQueryInputValue()}" 
+		hx-indicator=".yt-dl-indicator">Download from YT</button>
+</div>
+{{ end }}
+
+{{ define "audioSource" }}
+<source src="/songs/{{ .Title }}{{ .Extension }}" type="audio/mp3" />
+{{ end }}
+
+{{ define "homePage" }}
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="/styles.css"></link>
+	</head>
+	
+	<body>
+		<header>
+			<h1 title="Caching Web Radio">CWR</h1>
+		</header>
+		<main>
+			<div id="searchContainer">
+				<i class="yt-dl-indicator">Downloading...</i>
+				<input 
+				id="queryInput"
+				name="query"
+				placeholder="Search for a song..."
+				hx-get="/search" 
+				hx-trigger="input changed delay:200ms, search, load" 
+				hx-target="#search-results"
+				hx-swap="outerHTML"
+				/>
+				{{ template "searchResults" . }}
+			</div>
+
+		</main>
+
+		<footer>
+			<audio id="audio-source" controls></audio>
+		</footer>
+	</body>
+	
+	<script src="/htmx.min.js"></script>
+	<script>
+		function getQueryInputValue() {
+			return document.getElementById('queryInput').value;
+		}
+
+		document.addEventListener('htmx:afterRequest', function(evt) {
+			if (evt.detail.target.id == 'audio-source') {
+				evt.detail.target.load()
+				evt.detail.target.play()
+			}
+		})
+	</script>
+</html>
+{{ end }}

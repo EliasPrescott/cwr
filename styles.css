@@ -1,0 +1,90 @@
+@font-face {
+	font-family: RobotoCondensed-Bold; 
+	src: url('/fonts/RobotoCondensed-Bold.ttf');
+}
+
+html {
+	background-color: #222831;
+	color: #EEEEEE;
+	font-family: 'RobotoCondensed-Bold';
+}
+
+body {
+	margin: 0;
+}
+
+main {
+	padding: 48px;
+}
+
+header {
+	padding: 0 12px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+}
+
+input {
+	font-family: 'RobotoCondensed-Bold';
+}
+
+button {
+	font-family: 'RobotoCondensed-Bold';
+	border: none;
+	padding: 4px;
+	background-color: #00ADB5;
+	color: #393E46;
+	cursor: pointer;
+}
+
+footer {
+    position: fixed; 
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    audio {
+	    width: 100%;
+    }
+}
+
+#searchContainer {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+#queryInput {
+	border: 0;
+	font-size: 18px;
+	padding: 8px;
+	font-size: 1.8em;
+}
+
+#queryInput:focus-visible {
+	outline: none;
+}
+
+#search-results {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	border-top: 1px solid black;
+	overflow-y: scroll;
+
+	& > * {
+		text-align: start;
+		border-bottom: 1px solid black;
+		font-size: 1.5em;
+	}
+}
+
+.yt-dl-indicator {
+	opacity: 0;
+	transition: 1s opacity;
+}
+.yt-dl-indicator.htmx-request {
+	opacity: 1;
+}
