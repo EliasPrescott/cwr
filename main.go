@@ -59,7 +59,7 @@ type LocalCacheResult struct {
 func searchLocalSongCache(queryString string, musicDir string) []LocalCacheResult {
 	var results []LocalCacheResult
 	audioFilePaths := getAudioFilePaths(musicDir)
-	matches := fuzzy.RankFind(queryString, audioFilePaths) 
+	matches := fuzzy.RankFindNormalizedFold(queryString, audioFilePaths) 
 	sort.Sort(matches) 
 	for _, elem := range matches {
 		title := getSongTitleFromPath(elem.Target)
